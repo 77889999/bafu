@@ -2,7 +2,7 @@ name: 霸服论坛自动签到
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # 每天 UTC 0:00（北京时间 8:00）
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,11 +18,11 @@ jobs:
           python-version: '3.11'
 
       - name: 安装依赖
-        run: |
-          pip install requests beautifulsoup4
+        run: pip install requests
 
       - name: 运行签到脚本
         env:
           BAFU_USERNAME: ${{ secrets.BAFU_USERNAME }}
           BAFU_PASSWORD: ${{ secrets.BAFU_PASSWORD }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
         run: python bafu-signin/signin.py
